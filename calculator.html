@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Live Calculator — TRIAD Index</title>
+<meta name="description" content="Run your own TRL/MRL/CRL readiness assessment in the browser." />
+<link rel="stylesheet" href="assets/book.css" />
+</head>
+<body>
+<button class="nav-toggle" id="nav-toggle">MENU</button>
+<div class="page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <span class="sidebar__mark">△</span> TRIAD Index
+    </div>
+    <nav>
+        <a class="chapter" href="index.html"><span class="n">00</span>Overview</a>
+        <a class="chapter" href="background.html"><span class="n">01</span>Background & Objectives</a>
+        <a class="chapter" href="methodology.html"><span class="n">02</span>The Scoring Methodology</a>
+        <a class="chapter" href="case-studies.html"><span class="n">03</span>Case Studies</a>
+        <a class="chapter active" href="calculator.html"><span class="n">04</span>Live Calculator</a>
+        <a class="chapter" href="tool.html"><span class="n">05</span>Desktop GUI Tool</a>
+        <a class="chapter" href="appendix.html"><span class="n">06</span>Appendix: Full Levels</a>
+        <a class="chapter" href="advisory.html"><span class="n">07</span>Advisory & Contact</a>
+    </nav>
+    <div class="sidebar__download">
+      <p>Prefer a desktop tool? Download the full-featured GUI version.</p>
+      <a class="btn btn--primary" href="downloads/trl-readiness-gui.zip">Download GUI (.zip)</a>
+    </div>
+  </aside>
+  <main class="content">
+    <article>
+      <div class="breadcrumb">CHAPTER 04</div>
+      
+      <h1>Live Calculator</h1>
+      <p class="subtitle">Move each slider to the level whose description best matches where the venture
+      actually is today. Scores update live using the exact gate logic described in
+      <a href="methodology.html">Chapter 02</a>.</p>
+
+      <div class="calc-layout">
+        <div id="sliders"></div>
+        <aside class="results-panel">
+          <h3>Current Readiness</h3>
+          <div class="gauges" id="gauges"></div>
+          <div class="radar-wrap">
+            <h3>Category Maturity</h3>
+            <canvas id="radar-canvas" width="340" height="280"></canvas>
+          </div>
+          <div class="results-block">
+            <h3>Next Gate to Clear</h3>
+            <div id="next-steps"></div>
+          </div>
+          <div class="results-block critical-gaps">
+            <h3>Highest-Impact Gaps</h3>
+            <div id="critical-gaps"></div>
+          </div>
+          <div class="results-block">
+            <h3>Benchmark vs. Stage</h3>
+            <table class="benchmark-table">
+              <thead><tr><th>Stage</th><th>TRL</th><th>MRL</th><th>CRL</th><th>&Delta; vs you</th></tr></thead>
+              <tbody id="benchmark-body"></tbody>
+            </table>
+          </div>
+        </aside>
+      </div>
+    
+      <div class="page-nav">
+        <a href="case-studies.html"><span class="dir">&larr; Previous</span>Case Studies</a>
+        <a class="next" href="tool.html"><span class="dir">Next &rarr;</span>Desktop GUI Tool</a>
+      </div>
+    </article>
+  </main>
+</div>
+<script src="assets/site.js"></script>
+<script src="assets/chart.umd.min.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

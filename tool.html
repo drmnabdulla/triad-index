@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Desktop GUI Tool — TRIAD Index</title>
+<meta name="description" content="A standalone Python/Tkinter desktop application implementing the same scoring engine." />
+<link rel="stylesheet" href="assets/book.css" />
+</head>
+<body>
+<button class="nav-toggle" id="nav-toggle">MENU</button>
+<div class="page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <span class="sidebar__mark">△</span> TRIAD Index
+    </div>
+    <nav>
+        <a class="chapter" href="index.html"><span class="n">00</span>Overview</a>
+        <a class="chapter" href="background.html"><span class="n">01</span>Background & Objectives</a>
+        <a class="chapter" href="methodology.html"><span class="n">02</span>The Scoring Methodology</a>
+        <a class="chapter" href="case-studies.html"><span class="n">03</span>Case Studies</a>
+        <a class="chapter" href="calculator.html"><span class="n">04</span>Live Calculator</a>
+        <a class="chapter active" href="tool.html"><span class="n">05</span>Desktop GUI Tool</a>
+        <a class="chapter" href="appendix.html"><span class="n">06</span>Appendix: Full Levels</a>
+        <a class="chapter" href="advisory.html"><span class="n">07</span>Advisory & Contact</a>
+    </nav>
+    <div class="sidebar__download">
+      <p>Prefer a desktop tool? Download the full-featured GUI version.</p>
+      <a class="btn btn--primary" href="downloads/trl-readiness-gui.zip">Download GUI (.zip)</a>
+    </div>
+  </aside>
+  <main class="content">
+    <article>
+      <div class="breadcrumb">CHAPTER 05</div>
+      
+      <h1>Desktop GUI Tool</h1>
+      <p class="subtitle">The same gate-based scoring engine, packaged as a standalone Python desktop application
+      for offline assessments, project management, and formal report export.</p>
+
+      <div class="download-hero">
+        <a class="btn btn--primary" href="downloads/trl-readiness-gui.zip">Download (.zip)</a>
+        <a class="btn btn--ghost" href="downloads/trl_readiness_gui.py">Download source only (.py)</a>
+      </div>
+
+      <h2>What it does</h2>
+      <ul>
+        <li>Walks through all ten readiness categories with the same descriptions used in the web calculator.</li>
+        <li>Live TRL / MRL / CRL scoring with the identical gate logic — an assessment done here is directly
+        comparable to one done in the browser.</li>
+        <li>Dashboard tab: category maturity heatmap, a progress timeline, and stage benchmarks.</li>
+        <li>Recommendations tab: critical-gap ranking (weighted by impact) and an auto-generated roadmap.</li>
+        <li>Save and reload assessments as JSON; export to CSV, Excel, or a formatted PDF report.</li>
+        <li>Local, SQLite-backed project manager for tracking multiple ventures or repeat assessments over time.</li>
+      </ul>
+
+      <h2>Requirements</h2>
+      <p>Python 3.9+ with Tkinter (included in most Python installs). Everything else is optional — the app
+      detects what's installed and simply disables the related export or chart features if a library is missing:</p>
+      <pre><code>pip install matplotlib numpy pandas openpyxl reportlab</code></pre>
+
+      <h2>Run it</h2>
+      <pre><code>python3 trl_readiness_gui.py</code></pre>
+
+      <div class="callout callout--good">
+        <p>The web calculator and this desktop tool share one scoring engine, so you can start an assessment on
+        a laptop offline and cross-check it against the browser version — the numbers will match exactly.</p>
+      </div>
+    
+      <div class="page-nav">
+        <a href="calculator.html"><span class="dir">&larr; Previous</span>Live Calculator</a>
+        <a class="next" href="appendix.html"><span class="dir">Next &rarr;</span>Appendix: Full Levels</a>
+      </div>
+    </article>
+  </main>
+</div>
+<script src="assets/site.js"></script>
+
+</body>
+</html>

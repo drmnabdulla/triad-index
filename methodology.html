@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Scoring Methodology — TRIAD Index</title>
+<meta name="description" content="How the gate-based TRL/MRL/CRL scoring engine actually works, with the real logic." />
+<link rel="stylesheet" href="assets/book.css" />
+</head>
+<body>
+<button class="nav-toggle" id="nav-toggle">MENU</button>
+<div class="page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <span class="sidebar__mark">△</span> TRIAD Index
+    </div>
+    <nav>
+        <a class="chapter" href="index.html"><span class="n">00</span>Overview</a>
+        <a class="chapter" href="background.html"><span class="n">01</span>Background & Objectives</a>
+        <a class="chapter active" href="methodology.html"><span class="n">02</span>The Scoring Methodology</a>
+        <a class="chapter" href="case-studies.html"><span class="n">03</span>Case Studies</a>
+        <a class="chapter" href="calculator.html"><span class="n">04</span>Live Calculator</a>
+        <a class="chapter" href="tool.html"><span class="n">05</span>Desktop GUI Tool</a>
+        <a class="chapter" href="appendix.html"><span class="n">06</span>Appendix: Full Levels</a>
+        <a class="chapter" href="advisory.html"><span class="n">07</span>Advisory & Contact</a>
+    </nav>
+    <div class="sidebar__download">
+      <p>Prefer a desktop tool? Download the full-featured GUI version.</p>
+      <a class="btn btn--primary" href="downloads/trl-readiness-gui.zip">Download GUI (.zip)</a>
+    </div>
+  </aside>
+  <main class="content">
+    <article>
+      <div class="breadcrumb">CHAPTER 02</div>
+      
+      <h1>The Scoring Methodology</h1>
+      <p class="subtitle">Three frameworks, ten categories, and one gating rule that ties them together.</p>
+
+      <h2>The three axes</h2>
+      <table>
+        <thead><tr><th>Axis</th><th>Tracks</th><th>Range</th></tr></thead>
+        <tbody>
+          <tr><td><span class="lvl-badge">TRL</span></td><td>The underlying science and engineering — from basic
+          principles observed to a system proven under full operating conditions.</td><td>1 – 9</td></tr>
+          <tr><td><span class="lvl-badge">MRL</span></td><td>The ability to produce the technology reliably —
+          process development, pilot production, scale-up to full-rate manufacturing.</td><td>1 – 10</td></tr>
+          <tr><td><span class="lvl-badge">CRL</span></td><td>Market and business maturity — product definition,
+          competitive positioning, team, go-to-market, supply chain, and financing.</td><td>1 – 9</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Ten sub-categories</h2>
+      <p>Each axis is broken into sub-categories, each with its own concrete, evidence-based level descriptions
+      (the full text for every level is in the <a href="appendix.html">Appendix</a> and in the live calculator):</p>
+      <table>
+        <thead><tr><th>Category</th><th>Feeds into</th><th>Levels</th></tr></thead>
+        <tbody>
+          <tr><td>Technology</td><td>TRL</td><td>1–5</td></tr>
+          <tr><td>Product Development</td><td>TRL</td><td>1–5</td></tr>
+          <tr><td>Manufacturing Research</td><td>MRL</td><td>1–5</td></tr>
+          <tr><td>Manufacturing Scale-up</td><td>MRL</td><td>1–6</td></tr>
+          <tr><td>Product Definition/Design</td><td>CRL</td><td>1–6</td></tr>
+          <tr><td>Competitive Landscape</td><td>CRL</td><td>1–5</td></tr>
+          <tr><td>Team</td><td>CRL</td><td>1–5</td></tr>
+          <tr><td>Go-To-Market</td><td>CRL</td><td>1–6</td></tr>
+          <tr><td>Supply Chain</td><td>CRL</td><td>1–6</td></tr>
+          <tr><td>Finance</td><td>CRL</td><td>1–7</td></tr>
+        </tbody>
+      </table>
+
+      <h2>The gate rule — not an average</h2>
+      <p>This is the part that makes the methodology work in practice rather than just on paper: a venture's
+      overall score on each axis is <strong>not an average</strong> of its category levels. It's a gate. The
+      scorer walks up the scale and assigns the <strong>highest level whose entire set of category minimums is
+      satisfied</strong>. A venture can't reach CRL 6 by being excellent at Team while weak on Finance — every
+      category required for that level has to clear its bar first.</p>
+
+      <p>Here is the actual scoring function, unchanged from the underlying engine:</p>
+      <pre><code>function scoreFromRules(selections, rules) {
+  let best = 0;
+  Object.keys(rules).map(Number).sort((a, b) => a - b).forEach((level) => {
+    const req = rules[level];
+    const met = Object.entries(req).every(
+      ([cat, min]) => (selections[cat] || 0) >= min
+    );
+    if (met) best = level;
+  });
+  return best;
+}</code></pre>
+
+      <p>And a fragment of the actual gate table for CRL — notice how the requirement tightens across six
+      categories simultaneously as the level rises:</p>
+      <pre><code>const CRL_RULES = {
+  1: { "Product Definition/Design": 1, "Competitive Landscape": 1, "Team": 1,
+       "Go-To-Market": 1, "Supply Chain": 1, "Finance": 1 },
+  4: { "Product Definition/Design": 4, "Competitive Landscape": 4, "Team": 3,
+       "Go-To-Market": 3, "Supply Chain": 2, "Finance": 2 },
+  9: { "Product Definition/Design": 6, "Competitive Landscape": 5, "Team": 5,
+       "Go-To-Market": 6, "Supply Chain": 6, "Finance": 7 },
+  // ...levels 2, 3, 5, 6, 7, 8 fill the gaps between these
+};</code></pre>
+
+      <h2>Customization</h2>
+      <p>Because the framework is gate-based per category, it can be customized without redesigning the whole
+      tool: categories that don't apply to a given industry (Manufacturing Research and Scale-up have limited
+      relevance to pure software, for instance — see <a href="case-studies.html">the AI power-saving case
+      study</a>) can be down-weighted or excluded from that axis's gate entirely.</p>
+
+      <div class="callout">
+        <p>Want to see this scored live against your own venture? Jump to the
+        <a href="calculator.html">interactive calculator</a> — it runs this exact engine in the browser.</p>
+      </div>
+    
+      <div class="page-nav">
+        <a href="background.html"><span class="dir">&larr; Previous</span>Background & Objectives</a>
+        <a class="next" href="case-studies.html"><span class="dir">Next &rarr;</span>Case Studies</a>
+      </div>
+    </article>
+  </main>
+</div>
+<script src="assets/site.js"></script>
+
+</body>
+</html>
