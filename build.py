@@ -4,6 +4,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 
 AUTHOR_NAME = "Mostafa Abdulla, PhD"
 AUTHOR_EMAIL = "mnabdull@ieee.org"
+SITE_URL = "https://drmnabdulla.github.io/triad-index"
 
 CHAPTERS = [
     {"slug": "index", "file": "index.html", "num": "00", "nav": "Overview"},
@@ -47,6 +48,13 @@ TEMPLATE = """<!DOCTYPE html>
 <title>{title} — TRIAD Index</title>
 <meta name="description" content="{description}" />
 <meta name="author" content="{author}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{title} — TRIAD Index" />
+<meta property="og:description" content="{description}" />
+<meta property="og:url" content="{og_url}" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{title} — TRIAD Index" />
+<meta name="twitter:description" content="{description}" />
 <link rel="stylesheet" href="assets/book.css" />
 </head>
 <body>
@@ -88,6 +96,7 @@ def render(slug, title, description, body, extra_scripts=""):
         title=title,
         description=description,
         author=AUTHOR_NAME,
+        og_url=f"{SITE_URL}/{c['file']}",
         sidebar=sidebar_html(slug),
         num=c["num"],
         body=body,
@@ -104,7 +113,9 @@ def render(slug, title, description, body, extra_scripts=""):
 render(
     "index",
     "Overview",
-    "An integrated TRL/MRL/CRL readiness methodology for startups and investors.",
+    "A gate-based methodology and free live calculator that scores ventures on Technology, "
+    "Manufacturing, and Commercial Readiness (TRL/MRL/CRL) — built for founders preparing for "
+    "diligence and investors screening technical deals.",
     f"""
       <h1>The TRIAD Index</h1>
       <p class="subtitle">A gate-based methodology for assessing Technology, Manufacturing, and Commercial
