@@ -2,6 +2,9 @@ import os
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
+AUTHOR_NAME = "Mostafa Abdulla, PhD"
+AUTHOR_EMAIL = "mnabdull@ieee.org"
+
 CHAPTERS = [
     {"slug": "index", "file": "index.html", "num": "00", "nav": "Overview"},
     {"slug": "background", "file": "background.html", "num": "01", "nav": "Background & Objectives"},
@@ -43,6 +46,7 @@ TEMPLATE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{title} — TRIAD Index</title>
 <meta name="description" content="{description}" />
+<meta name="author" content="{author}" />
 <link rel="stylesheet" href="assets/book.css" />
 </head>
 <body>
@@ -83,6 +87,7 @@ def render(slug, title, description, body, extra_scripts=""):
     html = TEMPLATE.format(
         title=title,
         description=description,
+        author=AUTHOR_NAME,
         sidebar=sidebar_html(slug),
         num=c["num"],
         body=body,
@@ -100,10 +105,13 @@ render(
     "index",
     "Overview",
     "An integrated TRL/MRL/CRL readiness methodology for startups and investors.",
-    """
+    f"""
       <h1>The TRIAD Index</h1>
       <p class="subtitle">A gate-based methodology for assessing Technology, Manufacturing, and Commercial
       Readiness — built for founders preparing for diligence, and investors screening deep-tech and hardware deals.</p>
+      <p style="font-family: var(--mono); font-size: 0.82rem; color: var(--ink-faint); margin-top: -20px;">
+        By {AUTHOR_NAME} &middot; <a href="mailto:{AUTHOR_EMAIL}">{AUTHOR_EMAIL}</a>
+      </p>
 
       <p>Emerging and growing companies often struggle to answer a deceptively simple question: <strong>how ready
       is this, really?</strong> Technical readiness, manufacturing readiness, and commercial readiness usually get
@@ -451,7 +459,7 @@ render(
     "advisory",
     "Advisory & Contact",
     "Readiness diligence services for founders and investors.",
-    """
+    f"""
       <h1>Advisory &amp; Contact</h1>
       <p class="subtitle">I use the TRIAD Index to give technical founders a clear-eyed view of where their
       venture actually stands, and to give investors a structured, repeatable way to compare deep-tech and
@@ -472,10 +480,9 @@ render(
 
       <h2>Get in touch</h2>
       <div class="contact-card">
-        <div class="contact-card__row"><span>NAME</span><span>[Your Name]</span></div>
-        <div class="contact-card__row"><span>EMAIL</span><span>[you@example.com]</span></div>
-        <div class="contact-card__row"><span>LINKEDIN</span><span>[linkedin.com/in/you]</span></div>
-        <a href="mailto:you@example.com" class="btn btn--primary">Book a readiness review</a>
+        <div class="contact-card__row"><span>NAME</span><span>{AUTHOR_NAME}</span></div>
+        <div class="contact-card__row"><span>EMAIL</span><span>{AUTHOR_EMAIL}</span></div>
+        <a href="mailto:{AUTHOR_EMAIL}" class="btn btn--primary">Book a readiness review</a>
       </div>
     """,
 )
